@@ -1,127 +1,192 @@
 import random as rand
 
+crit = False
 
+#difficulty loop
 start = False
 while start == False:
-    ask = int(input("How hard do you want the game to be (1-5)?:"))
+    ask = int(input("How hard do you want the game to be (1-5 is reccomended)?:"))
     check = str(input(f"You've chosen {ask} are you sure? (y/n):"))
     if check == "Y" or check == "y":
         start = True
 
-
 def game():
-    #use later y = rand.randrange(0,3)
-    y = 0
-    if y == 0:
-        points = 10
-        hp1 = points + (ask*2)
-        print(hp1)
-        ann = print("you find a goblin")
-        say = int(input("""
-            Do you want to:
-            1: Fight
-            2: Run
+    play = True
+    points = 0
+
+    while play == True:
+        y = rand.randrange(1,5)
+        #everything important
+        if y == 1:
+            global value 
+            value = 10 + (ask*2) + (y*3) -1
+            global hp
+            hp = (y*10) + (ask*2)
+            print(hp)
+            print("you find a goblin")
+            say = int(input("""
+                Do you want to:
+                1: Fight
+                2: Run
+                        """))
+            #Nested combat loop 
+            if say == 1:
+                conn = input("Ok roll to hit")
+                if conn == "":
+                    while hp >= 1:
+                        if con() == True and hp >= 0:
+                            #updated the hp after damage
+                            hp = com()
+                            if hp <= 0:
+                                print("You Killed it!")
+                                points = points + value
+                                y = rand.randrange(1,2)
+                                break
+                        elif con() == False:
+                            con()
+            elif say == 2:
+                if points <= 10:
+                    print("You ran away")
+                    print(f"Points: {points}")
+                    break
+                elif points > 10:
+                    print("You Return Victorious!")
+                    print(f"Points: {points}")
+                    break
+
+        elif y == 2:
+            value = 10 + (ask*2) + (y*3) -1
+            hp = (y*10) + (ask*2)
+            print(hp)
+            print("you find a Skeleton")
+            say = int(input("""
+                Do you want to:
+                1: Fight
+                OR
+                2: Run
                     """))
-            #Nested combat loop
-        if say == 1:
-            combat()
+            #Nested combat loop 
+            if say == 1:
+                conn = input("Ok roll to hit")
+                if conn == "":
+                    while hp >= 1:
+                        if con() == True and hp >= 0:
+                            #updated the hp after damage
+                            hp = com()
+                            if hp <= 0:
+                                print("You Killed it!")
+                                points = points + value
+                                y = rand.randrange(1,2)
+                                break
+                        elif con() == False:
+                            con()
+            elif say == 2:
+                if points <= 10:
+                    print("You ran away")
+                    print(f"Points: {points}")
+                    break
+                elif points > 10:
+                    print("You Return Victorious!")
+                    print(f"Points: {points}")
+                    break       
 
-def combat():
-    while hp >= 0:
-        con()
-        if con() == True:
-            hp = hp - damage()
-            print(f"You did {damage()} damage!")
-            return hp
-
-
-
-
-def con():
-    conn = input("Ok roll to hit")
-    if conn == "":
-        #use later connect = rand.randrange(1,20)
-        connect = 20
-        if connect >= 10:
-            x = True
-            return x
-        else:
-            x = False
-            return x
-            
- 
-
-def damage():
+        elif y == 3:
+            value = 10 + (ask*2) + (y*3) -1
+            hp = (y*10) + (ask*2)
+            print(hp)
+            print("you find a Orc")
+            say = int(input("""
+                Do you want to:
+                1: Fight
+                2: Run
+                    """))
+            #Nested combat loop 
+            if say == 1:
+                conn = input("Ok roll to hit")
+                if conn == "":
+                    while hp >= 1:
+                        if con() == True and hp >= 0:
+                            #updated the hp after damage
+                            hp = com()
+                            if hp <= 0:
+                                print("You Killed it!")
+                                points = points + value
+                                y = rand.randrange(1,2)
+                                break
+                        elif con() == False:
+                            con()
+            elif say == 2:
+                if points <= 10:
+                    print("You ran away")
+                    print(f"Points: {points}")
+                    break
+                elif points > 10:
+                    print("You Return Victorious!")
+                    print(f"Points: {points}")
+                    break
+                
+        elif y == 4:
+            value = 10 + (ask*2) + (y*3) -1
+            hp = (y*10) + (ask*2)
+            print(hp)
+            print("you find a Ogre")
+            say = int(input("""
+                Do you want to:
+                1: Fight
+                2: Run
+                    """))
+            #Nested combat loop 
+            if say == 1:
+                conn = input("Ok roll to hit")
+                if conn == "":
+                    while hp >= 1:
+                        if con() == True and hp >= 0:
+                            #updated the hp after damage
+                            hp = com()
+                            if hp <= 0:
+                                print("You Killed it!")
+                                points = points + value
+                                y = rand.randrange(1,2)
+                                break
+                        elif con() == False:
+                            con()
+            elif say == 2:
+                if points <= 10:
+                    print("You ran away")
+                    print(f"Points: {points}")
+                    break
+                elif points > 10:
+                    print("You Return Victorious!")
+                    print(f"Points: {points}")
+                    break
+     
+#this returns the hp after combat
+def com():
     say1 = input("YOU HIT!, roll for damage:")
     if say1 == "":
-        dmg = rand.randrange(1,20)                            
-        return dmg
-    
+        dmg = rand.randrange(1,20)
+        if con() == True:                           
+            hp1 = hp - dmg
+            print(f"You did {dmg} damage!")
+        elif con() == True and crit == True:
+            dmg = dmg*2
+            hp1 = hp - dmg
+            crit = False
+            print(f"You did {dmg} damage!")
+        return hp1
 
-
-def store():
-    """
-
-    conn = input("Ok roll to hit")
-        if conn == "":
-            #use later connect = rand.randrange(1,20)
-            connect = 20
-            if connect >= 10:
-                #Damage
-                say1 = input("YOU HIT!, roll for damage:")
-                if say1 == "":
-                    dmg = rand.randrange(1,20)
-                    print(hp)
-                    if hp <= 5 and hp > 0:
-                        print(f"Dmg: {dmg}")
-                        print("it looks badly hurt")
-                        print(hp)
-                        conn = input("Ok roll to hit")
-                        if conn == "":
-                        #use later connect = rand.randrange(1,20)
-                            connect = 20
-                            if connect >= 10:
-                                say2 = input("YOU HIT!, roll for damage:")
-                                if say2 == "":
-                                    dmg = rand.randrange(1,20)                                        
-                                    
-
-                    elif hp <= 10 and hp >= 5:
-                        print(f"Dmg: {dmg}")
-                        print("It looks ok")
-                        print(hp)
-                        conn = input("Ok roll to hit")
-                        if conn == "":
-                            #use later connect = rand.randrange(1,20)
-                            connect = 20
-                            if connect >= 10:
-                                say1 = input("YOU HIT!, roll for damage:")
-                                if say1 == "":
-                                    dmg = rand.randrange(1,20)                                
-                                    hp = hp - dmg
-                                    
-                    elif hp >10:
-                        print(f"Dmg: {dmg}")
-                        print("Its fine")
-                        print(hp)
-                        conn = input("Ok roll to hit")
-                        if conn == "":
-                            #use later connect = rand.randrange(1,20)                                
-                            connect = 20
-                            if connect >= 10:
-                                say1 = input("YOU HIT!, roll for damage:")
-                                if say1 == "":
-                                    dmg = rand.randrange(1,20)                            
-                                    hp = hp - dmg
-                    print(f"Dmg: {dmg}")
-        
-                    if hp <= 0:
-                        print("kill check")
-                        print("You killed it!")
-                        hp = hp - dmg
-            return hp    
-    
-    """
-
-
+#Checks if your attack hits or not
+def con():
+        #connect = rand.randrange(1,20)
+        connect = 20
+        if connect >= 5:
+            return True
+        elif connect == 20:
+            crit = True
+            return True
+        else:
+            retry = input("You missed :( roll again:")
+            if retry == "":
+                return False
+            
 game()
