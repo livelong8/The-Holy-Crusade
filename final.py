@@ -12,6 +12,7 @@ while start == False:
 
 def game():
     play = True
+    global points
     points = 0
 
     while play == True:
@@ -165,14 +166,15 @@ def com():
     say1 = input("YOU HIT!, roll for damage:")
     if say1 == "":
         dmg = rand.randrange(1,20)
+        bonus = points/10
         if con() == True:                           
-            hp1 = hp - dmg
-            print(f"You did {dmg} damage!")
+            hp1 = hp - (dmg + bonus)
+            print(f"You did {dmg + bonus} damage!")
         elif con() == True and crit == True:
             dmg = dmg*2
             hp1 = hp - dmg
             crit = False
-            print(f"You did {dmg} damage!")
+            print(f"You did {dmg + bonus} damage!")
         return hp1
 
 #Checks if your attack hits or not
