@@ -1,6 +1,7 @@
 import random as rand
 
 crit = False
+e = 4
 
 #difficulty loop
 start = False
@@ -16,13 +17,16 @@ def game():
     points = 0
 
     while play == True:
-        y = rand.randrange(1,5)
+        y = rand.randint(1,e)
+        y = 1
         #everything important
         if y == 1:
             global value 
-            value = 10 + (ask*2) + (y*3) -1
+            value = y*10 + (ask*5)
             global hp
-            hp = (y*10) + (ask*2)
+            hp = (y*10) + (ask*10)
+            global php
+            php = 100
             print(hp)
             print("you find a goblin")
             say = int(input("""
@@ -41,23 +45,30 @@ def game():
                             if hp <= 0:
                                 print("You Killed it!")
                                 points = points + value
-                                y = rand.randrange(1,2)
+                                y = rand.randint(1,e)
+                                print(f"You have {php} Health left")
                                 break
                         elif con() == False:
                             con()
+                        ecom = rand.randint(1,20)
+                        print(f"It hits you for {ecom} Damage")
+                        php = php - ecom
+
+                        
+                
             elif say == 2:
-                if points <= 10:
+                if points <= 50:
                     print("You ran away")
                     print(f"Points: {points}")
                     break
-                elif points > 10:
+                elif points > 50:
                     print("You Return Victorious!")
                     print(f"Points: {points}")
                     break
 
         elif y == 2:
-            value = 10 + (ask*2) + (y*3) -1
-            hp = (y*10) + (ask*2)
+            value = y*10 + (ask*5)
+            hp = (y*10) + (ask*10)
             print(hp)
             print("you find a Skeleton")
             say = int(input("""
@@ -77,23 +88,23 @@ def game():
                             if hp <= 0:
                                 print("You Killed it!")
                                 points = points + value
-                                y = rand.randrange(1,2)
+                                y = rand.randrange(1,e)
                                 break
                         elif con() == False:
                             con()
             elif say == 2:
-                if points <= 10:
+                if points <= 50:
                     print("You ran away")
                     print(f"Points: {points}")
                     break
-                elif points > 10:
+                elif points > 50:
                     print("You Return Victorious!")
                     print(f"Points: {points}")
-                    break       
+                    break      
 
         elif y == 3:
-            value = 10 + (ask*2) + (y*3) -1
-            hp = (y*10) + (ask*2)
+            value = y*10 + (ask*5)
+            hp = (y*10) + (ask*10)
             print(hp)
             print("you find a Orc")
             say = int(input("""
@@ -112,23 +123,23 @@ def game():
                             if hp <= 0:
                                 print("You Killed it!")
                                 points = points + value
-                                y = rand.randrange(1,2)
+                                y = rand.randrange(1,e)
                                 break
                         elif con() == False:
                             con()
             elif say == 2:
-                if points <= 10:
+                if points <= 50:
                     print("You ran away")
                     print(f"Points: {points}")
                     break
-                elif points > 10:
+                elif points > 50:
                     print("You Return Victorious!")
                     print(f"Points: {points}")
                     break
                 
         elif y == 4:
-            value = 10 + (ask*2) + (y*3) -1
-            hp = (y*10) + (ask*2)
+            value = y*10 + (ask*5)
+            hp = (y*10) + (ask*10)
             print(hp)
             print("you find a Ogre")
             say = int(input("""
@@ -147,20 +158,41 @@ def game():
                             if hp <= 0:
                                 print("You Killed it!")
                                 points = points + value
-                                y = rand.randrange(1,2)
+                                y = rand.randrange(1,e)
                                 break
                         elif con() == False:
                             con()
             elif say == 2:
-                if points <= 10:
+                if points <= 50:
                     print("You ran away")
                     print(f"Points: {points}")
                     break
-                elif points > 10:
+                elif points > 50:
                     print("You Return Victorious!")
                     print(f"Points: {points}")
                     break
-     
+        if php <= 0:
+            print(f"You Lost! Your score was {points}")
+            break
+
+#Checks if your attack hits or not
+def con():
+        connect = rand.randrange(1,20)
+        if connect >= 5:
+            return True
+        elif connect == 20:
+            crit = True
+            return True
+        else:
+            retry = input("You missed :( roll again:")
+            if retry == "":
+                #enemy damage stuff
+                ecom = rand.randint(1,20)
+                print(f"It hits you for {ecom} Damage")
+                php = php - ecom
+                return False
+
+
 #this returns the hp after combat
 def com():
     say1 = input("YOU HIT!, roll for damage:")
@@ -176,19 +208,8 @@ def com():
             crit = False
             print(f"You did {dmg + bonus} damage!")
         return hp1
+    
+    
 
-#Checks if your attack hits or not
-def con():
-        #connect = rand.randrange(1,20)
-        connect = 20
-        if connect >= 5:
-            return True
-        elif connect == 20:
-            crit = True
-            return True
-        else:
-            retry = input("You missed :( roll again:")
-            if retry == "":
-                return False
-            
+
 game()
